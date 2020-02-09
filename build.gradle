@@ -1,6 +1,7 @@
 
 plugins {
     id 'application'
+    id 'jacoco'
 }
 
 repositories {
@@ -24,6 +25,7 @@ test {
     testLogging {
         events "passed", "skipped", "failed"
     }
+    finalizedBy jacocoTestReport
 }
 
 //Jars everything together
