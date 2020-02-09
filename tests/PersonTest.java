@@ -1,11 +1,13 @@
-import static org.junit.Assert.*;
+package tests;
 
-import org.junit.Test;
-import sample.Person;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Test;
+import Person;
 
 public class PersonTest
 {
-  //public Person(String firstName, String lastName, String address,
+  //public src.Person(String firstName, String lastName, String address,
     // String city, String state, String zip, String phone)
   Person test_Person = new Person("John","Doe","123 fake street","Fort Myers","FL","33901","123456789");
 
