@@ -1,0 +1,49 @@
+
+plugins {
+    id 'application'
+    id 'jacoco'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile group: 'org.jetbrains', name: 'annotations', version: '18.0.0'
+    compile group: 'org.xerial', name: 'sqlite-jdbc', version: '3.27.2.1'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.3.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.3.1'
+}
+
+compileJava {
+    doFirst {
+        options.compilerArgs = ['--module-path', classpath.asPath]
+    }
+}
+
+jacoco {
+    toolVersion = "0.8.5"
+    reportsDir = file("$buildDir/JaCoCoReportDir")
+}
+
+//Jars eveything together
+jar {
+    manifest {
+        attributes 'Main-Class': 'Main'
+    }
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
+
+//Builds and runs a jar executable
+task buildAndRun(type: JavaExec) {
+    buildAndRun.dependsOn jar
+    classpath = files('build/libs/AddressBook.jar')
+    classpath += sourceSets.main.runtimeClasspath
+    main = 'Main'
+}
+
+mainClassName = 'Main'
+sourceSets.main.java.srcDir 'src'
+

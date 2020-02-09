@@ -4,16 +4,13 @@ import javax.swing.table.AbstractTableModel;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class AddressBook extends AbstractTableModel {
     private List<Person> persons = new ArrayList<>();
 
-   
     public Person[] getPersons() {
         return persons.toArray(new Person[persons.size()]);
     }
 
-  
     public void add(Person p) {
         int newIndex = persons.size();
         persons.add(p);
@@ -31,13 +28,11 @@ public class AddressBook extends AbstractTableModel {
         fireTableRowsUpdated(index, index);
     }
 
-  
     public void remove(int index) {
         persons.remove(index);
         fireTableRowsDeleted(index, index);
     }
 
-   
     public Person get(int index) {
         return persons.get(index);
     }
@@ -53,24 +48,20 @@ public class AddressBook extends AbstractTableModel {
         persons.clear();
     }
 
-  
     @Override
     public int getRowCount() {
         return persons.size();
     }
 
-  
     public int getColumnCount() {
         return Person.fields.length;
     }
-
 
     @Override
     public Object getValueAt(int row, int column) {
         return persons.get(row).getField(column);
     }
 
-   
     @Override
     public String getColumnName(int column) {
         return Person.fields[column];

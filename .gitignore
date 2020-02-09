@@ -1,0 +1,8 @@
+#Ignore project file
+*.iml
+.idea/
+.gradle/
+.vscode
+
+#Binaries
+bin/
