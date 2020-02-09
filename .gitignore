@@ -7,6 +7,7 @@
 .classpath
 .settings/
 gradle/
+build/
 
 #Binaries
 bin/

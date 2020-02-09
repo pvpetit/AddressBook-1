@@ -29,7 +29,7 @@ jacoco {
 //Jars eveything together
 jar {
     manifest {
-        attributes 'Main-Class': 'Main'
+        attributes 'Main-Class': 'AddressBookGUI'
     }
     from {
         configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
@@ -41,9 +41,9 @@ task buildAndRun(type: JavaExec) {
     buildAndRun.dependsOn jar
     classpath = files('build/libs/AddressBook.jar')
     classpath += sourceSets.main.runtimeClasspath
-    main = 'Main'
+    main = 'AddressBookGUI'
 }
 
-mainClassName = 'Main'
+mainClassName = 'AddressBookGUI'
 sourceSets.main.java.srcDir 'src'
 
