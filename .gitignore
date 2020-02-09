@@ -6,9 +6,14 @@
 .project
 .classpath
 .settings/
+gradle/
 
 #Binaries
 bin/
 
 #Macos files
 .DS_Store
+
+#Gradle
+gradlew
+gradlew.bat
