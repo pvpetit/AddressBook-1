@@ -3,6 +3,12 @@
 .idea/
 .gradle/
 .vscode
+.project
+.classpath
+.settings/
 
 #Binaries
 bin/
+
+#Macos files
+.DS_Store

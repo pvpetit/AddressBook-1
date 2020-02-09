@@ -1,5 +1,3 @@
-package sample;
-
 import java.util.regex.Pattern;
 
 //Click on Person, press Ctrl+Shift+T

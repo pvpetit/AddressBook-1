@@ -1,5 +1,3 @@
-package sample;
-
 import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
