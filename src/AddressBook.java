@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AddressBook extends AbstractTableModel {
+    private static final long serialVersionUID = 1L;
     private List<Person> persons = new ArrayList<>();
 
     public Person[] getPersons() {

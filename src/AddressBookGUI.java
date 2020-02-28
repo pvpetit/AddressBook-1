@@ -9,6 +9,8 @@ import java.io.File;
 import java.util.regex.Pattern;
 
 public class AddressBookGUI extends JFrame {
+    //TODO change save as to not be usable
+    private static final long serialVersionUID = 1L;
 
     private static void createAndShowGUI() {
         AddressBook addressBook = new AddressBook();
@@ -86,7 +88,8 @@ public class AddressBookGUI extends JFrame {
                 saveAsItem.doClick();
                 return;
             }
-            FileSystem fs = new FileSystem();
+            //FIXME is this needed?
+            //FileSystem fs = new FileSystem();
             try {
                 controller.save(currentFile);
                 saveItem.setEnabled(false);
@@ -149,7 +152,6 @@ public class AddressBookGUI extends JFrame {
             }
 
             public void filter() {
-
                 tableRowSorter.setRowFilter(RowFilter.regexFilter("(?iu)" + Pattern.quote(searchTextField.getText())));
             }
         });

@@ -5,6 +5,8 @@ import java.awt.*;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class PersonDialog extends JDialog {
+    private static final long serialVersionUID = 1L;
+    
     public enum Result {
         OK, CANCEL,
     }

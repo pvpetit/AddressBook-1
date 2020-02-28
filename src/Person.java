@@ -4,7 +4,7 @@ import java.util.regex.Pattern;
 //Click on "create new test case"
 public class Person {
 
-    public static final String[] fields = { "Last Name", "First Name", "Address", "City", "State", "ZIP", "Phone", };
+    public static final String[] fields = { "Last Name", "First Name", "Address", "City", "State", "ZIP", "Phone" };
 
     private String firstName;
     private String lastName;
