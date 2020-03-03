@@ -20,6 +20,7 @@ compileJava {
     }
 }
 
+//Run tests and code coverage tools
 test {
     useJUnitPlatform()
     testLogging {
