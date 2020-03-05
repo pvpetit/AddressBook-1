@@ -9,23 +9,18 @@ import java.io.File;
 import java.util.regex.Pattern;
 
 public class AddressBookGUI extends JFrame {
-    //TODO change save as to not be usable
     private static final long serialVersionUID = 1L;
-
-    private static void createAndShowGUI() {
-        AddressBook addressBook = new AddressBook();
-        AddressBookController controller = new AddressBookController(addressBook);
-        AddressBookGUI gui = new AddressBookGUI(controller, addressBook);
-        gui.setVisible(true);
-    }
 
     public static void main(String[] args) throws ClassNotFoundException {
         Class.forName("org.sqlite.JDBC");
-        SwingUtilities.invokeLater(() -> createAndShowGUI());
+        SwingUtilities.invokeLater(() -> {
+            AddressBookGUI gui = new AddressBookGUI();
+            gui.setVisible(true);
+        });
     }
 
-    private final AddressBookController controller;
-    private final AddressBook addressBook;
+    private final AddressBook addressBook = new AddressBook();;
+    private final AddressBookController controller = new AddressBookController(addressBook);
     private final JTable nameList;
     private final TableRowSorter<AddressBook> tableRowSorter;
     private final JButton addButton = new JButton("Add...");
@@ -41,11 +36,7 @@ public class AddressBookGUI extends JFrame {
 
     private File currentFile = null;
 
-    public AddressBookGUI(AddressBookController controller, AddressBook addressBook) {
-        // Set our local variables
-        this.controller = controller;
-        this.addressBook = addressBook;
-
+    public AddressBookGUI() {
         // Arrange the window controls
         tableRowSorter = new TableRowSorter<>(addressBook);
         nameList = new JTable(addressBook);
@@ -88,8 +79,6 @@ public class AddressBookGUI extends JFrame {
                 saveAsItem.doClick();
                 return;
             }
-            //FIXME is this needed?
-            //FileSystem fs = new FileSystem();
             try {
                 controller.save(currentFile);
                 saveItem.setEnabled(false);
@@ -98,7 +87,12 @@ public class AddressBookGUI extends JFrame {
                         JOptionPane.ERROR_MESSAGE);
             }
         });
+        saveItem.addChangeListener(e -> {
+            //Set saveAsItem with the same visibility as saveItem
+            saveAsItem.setEnabled(saveItem.isEnabled());
+        });
         file.add(saveItem);
+        saveAsItem.setEnabled(false);
         saveAsItem.addActionListener(e -> {
             final JFileChooser jfc = new JFileChooser();
             if (JFileChooser.APPROVE_OPTION != jfc.showSaveDialog(this)) {
