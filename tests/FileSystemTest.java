@@ -121,8 +121,8 @@ public class FileSystemTest {
         assertTrue(addressBook.getPersons().length==2); //Check both people exist
 
         //Check they are the same
-        assertEquals(addressBook.getPersons()[0].toString(),"Doe, John");
-        assertEquals(addressBook.getPersons()[1].toString(),"Doe, Jane");
+        assertEquals("Doe, John",addressBook.getPersons()[0].toString());
+        assertEquals("Doe, Jane",addressBook.getPersons()[1].toString());
     }
 
     @Test
@@ -152,7 +152,7 @@ public class FileSystemTest {
         assertTrue(addressBook.getPersons().length==2); 
 
         //Check they are second two people and not previous ones
-        assertEquals(addressBook.getPersons()[0].toString(),"Doe, Bob");
-        assertEquals(addressBook.getPersons()[1].toString(),"Doe, Joe");
+        assertEquals("Doe, Bob",addressBook.getPersons()[0].toString());
+        assertEquals("Doe, Joe",addressBook.getPersons()[1].toString());
     }
 }
