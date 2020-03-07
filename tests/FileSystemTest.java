@@ -13,17 +13,21 @@ import java.sql.SQLException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.jupiter.api.AfterEach;
+import org.junit.Rule;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.rules.TemporaryFolder;
 
 public class FileSystemTest {
+
+    @Rule
+    public static TemporaryFolder folder = new TemporaryFolder();
     private static AddressBook addressBook = null; //An generic address book
     private static FileSystem fileSystem=null; //The file system for testing
     private static File file = null;           //A java file for testing
 
     @BeforeEach
-    public void init() {
+    public void init() throws IOException {
         //Create a new filesystem each time
         fileSystem = new FileSystem();
 
@@ -31,15 +35,8 @@ public class FileSystemTest {
         addressBook = new AddressBook();
 
         //Create a new file for testing each time
-        file = new File("MyTestFileName");
-    }
-
-    @AfterEach
-    public void clean() {
-        //Delete file if it exists after each test
-        if(file!=null && file.exists()) {
-            file.delete();
-        }
+        folder.create();
+        file = folder.newFile("MyTestFile");
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -48,14 +45,17 @@ public class FileSystemTest {
 
     @Test
     public void readNonExistingFile() {
+        //Delete file
+        file.delete();
+
+        //Try reading deleted file
         assertThrows(FileNotFoundException.class, () -> fileSystem.readFile(addressBook,file));
     }
 
     @Test
     public void readUnreadableFile() {
-        //Create the unreadable file
-        assertDoesNotThrow(()->file.createNewFile()); 
-        file.setReadable(false);
+        //Make the file unreadable file
+        file.setReadable(false);    //NOTE: file will remain readable to the JVM on Windows platforms
 
         //Test that file not found exception is thrown. This is the expected result for unreadable files
         assertThrows(FileNotFoundException.class, () -> fileSystem.readFile(addressBook,file));
