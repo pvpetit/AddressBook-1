@@ -1,5 +1,6 @@
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 import java.util.ArrayList;
@@ -71,7 +72,7 @@ class AddressBookTest {
 //        .when(testModel).fireTableRowsInserted(0,0);
     //test the add functionality
 
-    assertFalse(personListTest.isEmpty());
+    assertFalse(test_AddressBook.getPersonsList().isEmpty());
 
   }
 
