@@ -1,19 +1,33 @@
-import javax.swing.table.AbstractTableModel;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.table.AbstractTableModel;
+
 
 public class AddressBook extends AbstractTableModel {
-    private static final long serialVersionUID = 1L;
     private List<Person> persons = new ArrayList<>();
 
-    public Person[] getPersons() {
-        return persons.toArray(new Person[persons.size()]);
+    public List<Person> getPersonsList(){
+        return persons;
     }
 
+    //Called After saving programming after changes.
+    //This will copy crrent Persons array to a new array which will place person data
+    //into the database
+    //used by FileSystem
+    //This converts arraylist to an array.
+    public Person[] getPersons() {
+
+        return persons.toArray(
+            new Person[persons.size()]
+        );
+    }
+
+    //This method adds new PErson object to Address Book
     public void add(Person p) {
         int newIndex = persons.size();
         persons.add(p);
-        fireTableRowsInserted(newIndex, newIndex);
+        System.out.println("new index: "+newIndex);
+        fireTableRowsInserted(0, 0);
     }
 
     /**
@@ -56,6 +70,9 @@ public class AddressBook extends AbstractTableModel {
         return Person.fields.length;
     }
 
+
+    //So I blieve program autimcally populate itself ussing persons ArrayList.
+    //via this method
     @Override
     public Object getValueAt(int row, int column) {
         return persons.get(row).getField(column);
