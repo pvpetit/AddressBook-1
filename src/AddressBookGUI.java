@@ -21,8 +21,8 @@ public class AddressBookGUI extends JFrame {
 
     private final AddressBook addressBook = new AddressBook();;
     private final AddressBookController controller = new AddressBookController(addressBook);
-    private final JTable nameList;
-    private final TableRowSorter<AddressBook> tableRowSorter;
+    private final JTable nameList = new JTable(addressBook);
+    private final TableRowSorter<AddressBook> tableRowSorter = new TableRowSorter<>(addressBook);;
     private final JButton addButton = new JButton("Add...");
     private final JButton editButton = new JButton("Edit...");
     private final JButton deleteButton = new JButton("Delete");
@@ -37,9 +37,20 @@ public class AddressBookGUI extends JFrame {
     private File currentFile = null;
 
     public AddressBookGUI() {
+        //Give names for GUI components
+        nameList.setName("table");
+        addButton.setName("add");
+        editButton.setName("edit");
+        deleteButton.setName("delete");
+        newItem.setName("new");
+        openItem.setName("open");
+        saveItem.setName("save");
+        saveAsItem.setName("saveAs");
+        printItem.setName("print");
+        quitItem.setName("quit");
+        searchTextField.setName("search");
+
         // Arrange the window controls
-        tableRowSorter = new TableRowSorter<>(addressBook);
-        nameList = new JTable(addressBook);
         nameList.setRowSorter(tableRowSorter);
         nameList.setFillsViewportHeight(true);
         JScrollPane scrollPane = new JScrollPane(nameList);
@@ -48,6 +59,7 @@ public class AddressBookGUI extends JFrame {
         JMenuBar menuBar = new JMenuBar();
         JMenu file = new JMenu("File");
         file.setMnemonic('F');
+        file.setName("file");
         newItem.addActionListener(e -> {
             if (saveItem.isEnabled() && JOptionPane.YES_OPTION != JOptionPane.showConfirmDialog(this,
                     "Are you sure you want to create a new address book? Any unsaved progress will be lost.",
@@ -59,6 +71,11 @@ public class AddressBookGUI extends JFrame {
         });
         file.add(newItem);
         openItem.addActionListener(e -> {
+            if (saveItem.isEnabled() && JOptionPane.YES_OPTION != JOptionPane.showConfirmDialog(this,
+                    "Are you sure you want to open a different address book? Any unsaved progress will be lost.",
+                    "Open Address Book", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE)) {
+                return;
+            }
             final JFileChooser jfc = new JFileChooser();
             if (JFileChooser.APPROVE_OPTION != jfc.showOpenDialog(this)) {
                 return;
@@ -88,7 +105,7 @@ public class AddressBookGUI extends JFrame {
             }
         });
         saveItem.addChangeListener(e -> {
-            //Set saveAsItem with the same visibility as saveItem
+            // Set saveAsItem with the same state as saveItem
             saveAsItem.setEnabled(saveItem.isEnabled());
         });
         file.add(saveItem);
