@@ -4,12 +4,8 @@ import javax.swing.table.AbstractTableModel;
 
 
 public class AddressBook extends AbstractTableModel {
+    private static final long serialVersionUID = 1L;
     private List<Person> persons = new ArrayList<>();
-
-    public List<Person> getPersonsList(){
-        return persons;
-    }
-
     //Called After saving programming after changes.
     //This will copy crrent Persons array to a new array which will place person data
     //into the database
@@ -26,8 +22,7 @@ public class AddressBook extends AbstractTableModel {
     public void add(Person p) {
         int newIndex = persons.size();
         persons.add(p);
-        System.out.println("new index: "+newIndex);
-        fireTableRowsInserted(0, 0);
+        fireTableRowsInserted(newIndex, newIndex);
     }
 
     /**
@@ -69,10 +64,6 @@ public class AddressBook extends AbstractTableModel {
     public int getColumnCount() {
         return Person.fields.length;
     }
-
-
-    //So I blieve program autimcally populate itself ussing persons ArrayList.
-    //via this method
     @Override
     public Object getValueAt(int row, int column) {
         return persons.get(row).getField(column);
