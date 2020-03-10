@@ -52,8 +52,6 @@ class AddressBookControllerTest {
   @Test
   void addPersonToList() {
     controllerTest.add(test_Person);
-
-    System.out.println(controllerTest.get(0).toString());
     assertEquals(controllerTest.get(0).getFirstName(),"Jane");
   }
 
