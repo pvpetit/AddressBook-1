@@ -52,7 +52,7 @@ class AddressBookControllerTest {
   @Test
   void addPersonToList() {
     controllerTest.add(test_Person);
-    assertEquals(controllerTest.get(0).getFirstName(),"Jane");
+    assertEquals("Jane",controllerTest.get(0).getFirstName());
   }
 
   /**
@@ -61,12 +61,12 @@ class AddressBookControllerTest {
    */
   @Test
   void setWith1PersonInList() {
-    //given index, and person chnage person in address book
-    //doNothing().when(addressBookMock).set(0,test_Person);
-    controllerTest.add(test_Person);
-    controllerTest.set(0,test_Person);
 
-    assertEquals(controllerTest.get(0),test_Person);
+    Person test_Person2 = new Person("Juanito","Hernandez",
+        "19964 Miami Beach","Miami,Ohio","OH","85012","2321232010");
+    controllerTest.add(test_Person);
+    controllerTest.set(0,test_Person2);
+    assertEquals(test_AddressBook.getPersons()[0].getFirstName(), test_Person2.getFirstName());
   }
 
   /**
@@ -75,7 +75,8 @@ class AddressBookControllerTest {
    */
   @Test
   void setWithEmptyListShouldThrowError() {
-    assertThrows(IndexOutOfBoundsException.class, () -> controllerTest.set(0,test_Person));
+    Exception exception = assertThrows(IndexOutOfBoundsException.class, () -> controllerTest.set(0,test_Person));
+    assertEquals("Index 0 out-of-bounds for length 0", exception.getMessage());
 
   }
 
@@ -83,15 +84,14 @@ class AddressBookControllerTest {
    * This test case will test that a person will be removed from Address Book.
    */
   @Test
-  void removePersonFromListAndListWillNotBeEmpty() {
+  void removePersonFromList() {
     //doNothing().when(addressBookMock).remove(0);
     controllerTest.add(test_Person);
-    int originalsize = controllerTest.addressBook.getPersons().length;
 
     controllerTest.remove(0);
-    int newsize = controllerTest.addressBook.getPersons().length;
+    int personListSize = controllerTest.addressBook.getPersons().length;
 
-    assertEquals(newsize+1, originalsize);
+    assertEquals(0,personListSize);
   }
 
   /**
@@ -100,23 +100,29 @@ class AddressBookControllerTest {
    */
   @Test
   void removeOnEmptyListShouldThrowError() {
-    assertThrows(IndexOutOfBoundsException.class, () -> controllerTest.remove(0));
+   Exception exception = assertThrows(IndexOutOfBoundsException.class, () -> controllerTest.remove(0));
+   assertEquals("Index 0 out-of-bounds for length 0", exception.getMessage());
   }
 
   /**
    * This test case will test if Address Book Person clears correctly.
    */
   @Test
-  void getPersonOnNONEmpyList() {
+  void getPersonOnNONEmptyList() {
     controllerTest.add(test_Person);
 
     //System.out.println(controllerTest.get(0).toString());
     assertEquals(controllerTest.get(0),test_Person);
   }
 
+  /**
+   *This test case will test that performing the get function on empty address book
+   * will return an out of bounds error
+   */
   @Test
-  void getOnEmpyListShouldThrowError() {
-    assertThrows(IndexOutOfBoundsException.class, () -> controllerTest.get(0));
+  void getOnEmptyListShouldThrowError() {
+   Exception exception = assertThrows(IndexOutOfBoundsException.class, () -> controllerTest.get(0));
+   assertEquals("Index 0 out-of-bounds for length 0", exception.getMessage());
   }
 
   /**

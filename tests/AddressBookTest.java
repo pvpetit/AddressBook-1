@@ -60,7 +60,7 @@ class AddressBookTest {
     test_AddressBook.add(test_Person);
     test_AddressBook.set(0,test_Person2);
     //Person[] personArray= test_AddressBook.getPersons();
-    assertEquals(test_AddressBook.getPersons()[0].getFirstName(), test_Person2.getFirstName());
+    assertEquals("Juanito",test_AddressBook.getPersons()[0].getFirstName());
 
   }
 
@@ -145,7 +145,7 @@ class AddressBookTest {
     //RowCount is Size of persoonList
     test_AddressBook.add(test_Person);
     test_AddressBook.add(test_Person);
-    assertEquals(test_AddressBook.getRowCount(),2);
+    assertEquals(2,test_AddressBook.getRowCount());
   }
 
   /**
@@ -155,7 +155,7 @@ class AddressBookTest {
    */
   @Test
   void getColumnCount() {
-    assertEquals(test_AddressBook.getColumnCount(),7);
+    assertEquals(7,test_AddressBook.getColumnCount());
   }
 
   /**
@@ -175,7 +175,6 @@ class AddressBookTest {
   @Test
   void getColumnName() {
     test_AddressBook.add(test_Person);
-    System.out.println(test_AddressBook.getColumnName(1));
-    assertEquals(test_AddressBook.get(0).getFirstName(),test_Person.getFirstName());
+    assertEquals("Jane",test_AddressBook.get(0).getFirstName());
   }
 }
